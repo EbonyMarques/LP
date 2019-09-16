@@ -24,4 +24,4 @@ with open("steam_reviews.csv", encoding = "utf-8") as file:
 
     list(map(lambda row: word_counts(row[0].split(",")[6], words), reader))
 
-    print("Ocorrências de '%s': %i\nOcorrências de '%s': %i\nOcorrências de '%s': %i" %(words[0], countsTotal[0], words[1], countsTotal[1], words[2], countsTotal[2]))
+    print("Ocorrências de '%s': %i\nOcorrências de '%s': %i\nOcorrências de '%s': %i" %(words[0], counts_total[0], words[1], counts_total[1], words[2], counts_total[2]))

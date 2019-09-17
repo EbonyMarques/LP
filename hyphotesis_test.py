@@ -23,7 +23,7 @@ h0 = "p = " + str(n*p)
 h1 = "p != " + str(n*p)
 
 print("n = %i" %(n))
-print("p = %f\n" %(p))
+print("p = %.2f\n" %(p))
 
 print("H0: %s" %(h0))
 print("H1: %s\n" %(h1))
@@ -43,4 +43,4 @@ if count == n*p:
     print("H0 is accepted.\n%s" %(h0))
 
 else:
-    print("H0 is rejected.\n%s" %(h1))
+    print("H0 is rejected.\n%i != %.2f" %(count, n*p))

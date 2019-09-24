@@ -10,7 +10,7 @@ def appender(row, word, n):
 def counter(recommendation):
     global count
     
-    if recommendation == "Not Recommended":
+    if recommendation == "Recommended":
         count += 1
 
 #hypothesis#
@@ -22,7 +22,7 @@ h1 = "p != " + str(n*p)
 ############
 
 reviews = []
-word = "good"
+word = "terrible"
 count = 0
 
 print("n = %i" %(n))
@@ -39,10 +39,10 @@ with open("steam_reviews.csv", encoding = "utf-8") as file:
 
 list(map(lambda review: counter(review[5]), reviews))
 
-print("%i/%i bad reviews with '%s'!\n" %(count, n, word))
+print("%i/%i good reviews with '%s'!\n" %(count, n, word))
 
 if count == n*p:
-    print("H0 is accepted.\n%s" %(h0))
+    print("H0 is not rejected.\n%s" %(h0))
 
 else:
     print("H0 is rejected.\n%i != %.2f" %(count, n*p))

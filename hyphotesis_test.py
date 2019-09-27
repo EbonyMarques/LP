@@ -1,27 +1,30 @@
 from nltk import FreqDist, word_tokenize
-from statsmodels.stats import weightstats as stests
-import rpy2
+from statsmodels.stats import weightstats
+from numpy import average
 import csv
 
-def appender_nices(row, word, n):
-    global nices
-    
-    if len(nices) < n:
-        if word in word_tokenize(row[6]) and row[5] == "Recommended":
-            nices.append(row)
+reviews, first_word_counts, second_word_counts = [], [], []
+first_word, second_word, n, recommendation = "nice", "good", 4350, "Recommended"
 
-def appender_goods(row, word, n):
-    global goods
-    
-    if len(goods) < n:
-        if word in word_tokenize(row[6]) and row[5] == "Recommended":
-            goods.append(row)
+def appender(row, recommendation, amount):
+    global reviews
 
-def counter(recommendation):
-    global count
-    
-    if recommendation == "Not Recommended":
-        count += 1
+    if len(reviews) < amount:
+        if recommendation == "":
+            reviews.append(row)
+
+        elif recommendation == row[5]:
+            reviews.append(row)
+
+def first_word_counter(text, word):
+    global first_word_counts
+
+    first_word_counts.append(word_counts(text, [word]))
+            
+def second_word_counter(text, word):
+    global second_word_counts
+
+    second_word_counts.append(word_counts(text, [word]))
 
 def word_counts(text, words):
     token = word_tokenize(text)
@@ -31,38 +34,34 @@ def word_counts(text, words):
 
     return result[0]
 
-nices, goods, nices_counts, goods_counts = [], [], [], []
-counts = 0
-
 with open("steam_reviews.csv", encoding = "utf-8") as file:
     reader = csv.reader(file, delimiter = ";")
     reader = list(reader)
     reader.pop(0)
 
-    list(map(lambda row: appender_nices(row[0].split(","), "nice", 1365), reader))
-    list(map(lambda row: appender_goods(row[0].split(","), "good", 1365), reader))
+    list(map(lambda row: appender(row[0].split(","), recommendation, n), reader))
 
-for review in nices:
-    nices_counts.append(word_counts(review[6], ["nice"]))
+    for i in reviews:
+        first_word_counter(i[6], first_word)
+        second_word_counter(i[6], second_word)
 
-for review in goods:
-    goods_counts.append(word_counts(review[6], ["good"]))
+ztest, pval = weightstats.ztest(first_word_counts, second_word_counts)
 
-ztest, pval = stests.ztest(nices_counts, goods_counts)
+a, b = average(first_word_counts), average(second_word_counts)
 
-a, b = 0, 0
+print("a = sum of all occurrences of %s in %s reviews" %(first_word, n))
+print("b = sum of all occurrences of %s in %s reviews\n" %(second_word, n))
 
-for i in nices_counts:
-    a += i
+print("Recommendation type: %s" %(recommendation))
 
-for i in goods_counts:
-    b += i
+print("\nH0: a/%s != b/%s"%(n, n))
+print("H1: a/%s = b/%s\n"%(n, n))
 
-print("H0: a/1365 = b/1365")
-print("H1: a/1365 != b/1365")
+print("a/%s = %f" %(n, a))
+print("b/%s = %f" %(n, b))
 
-if pval == 0.05:
-    print("H0 is not rejected")
+if pval < 0.05:
+    print("\nH0 is not rejected")
 
 else:
-    print("H0 is rejected")
+    print("\nH0 is rejected")

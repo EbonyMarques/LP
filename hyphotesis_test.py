@@ -34,21 +34,7 @@ with open("steam_reviews.csv", encoding = "utf-8") as file:
     list(map(lambda row: second_word_appender(row[0].split(",")), reader))
 
 ztest, pval = weightstats.ztest(first_word_counts, second_word_counts)
-"""
-a, b = 0, 0
 
-for i in first_word_counts:
-    a += i
-
-for i in second_word_counts:
-    b += i
-
-print("H0: a/4350 = b/4350")
-print("H1: a/4350 != b/4350\n")
-
-print("a/4350 = " + str(a/1365))
-print("b/4350 = " + str(b/1365) + "\n")
-"""
 if pval < 0.05:
     print("H0 is not rejected")
 

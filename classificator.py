@@ -1,8 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import BernoulliNB
-from threading import Thread
 
-data = [[0, "Had a ton of fun with this game for awhile until they released Freddy. Freddy isnt only game shatteringly broken he completely drains all the fun out of the game absolutely refuse to play any survivor until they actually do something about Freddy. Instead of pretending the slight tweaks they did as a 'nerf'. After weeks they still refuse to fix him. Would NOT recommend in it\'s current state."],
+reviews = [[0, "Had a ton of fun with this game for awhile until they released Freddy. Freddy isnt only game shatteringly broken he completely drains all the fun out of the game absolutely refuse to play any survivor until they actually do something about Freddy. Instead of pretending the slight tweaks they did as a 'nerf'. After weeks they still refuse to fix him. Would NOT recommend in it\'s current state."],
            [0, "At first i liked the game a lot but recent DLC\'s just take away the fun. Overpowered killers and a toxic community Bugs and Hosts with always 250+ Ping make the game 'exhausting'. 9 months ago i would\'ve upvote it.. But the way it is right now rather not. Grab it if it\'s in sale because i think the standard pricing for the game itself &amp DLCs is way too high. GIve it a try and make yourself a picture of it."],
            [0, "Dead by Daylight aka Dead by T.w.a.t.s is a r.e.t.a.r.d.e.d game made by potato brains. It\'s full of kids and incompetent devs that instead of fixing their 'made by paint.exe' game bugs they ban you for them. There is an ocean of bugs like texture ones map bugs design bugs and a long etc.... but nah it\'s better to let the players 'swim' in those and instead of fixing them the devs penetrate their dirty d.i.c.k.s in your a.s.s."],
            [0, "GARBAGE. TRASH. POORLY CODED GAME. CRASHS AS MUCH AS IT RUNS. DEV\'S PUSH OUT NEW DLC (PAY TO WIN) KILLERS BEFORE BALLANCE OLD ONES IN AN ATTEMPT TO MILK THE 'USEFUL IDIOTS' OF THER $$$. YOU ARE BETTER OFF HUFFING PAINT THAN PLAYING THIS PIECE OF TRASH. IT MAY HAVE BEEN A NICE IDEA BUT IT IS FAILED GARBAGE AND THE ONLY PEOPLE CALLING IT GOOD ARE JUST TRYING TO JUSTIFY THEIR TIME AND $$$ SPENT ON IT."],
@@ -199,47 +198,20 @@ data = [[0, "Had a ton of fun with this game for awhile until they released Fred
            [1, "I 100% recommend this game to anyone who is looking to spend a bit too much money on a game. If you can find atleast one other friend to play this with you will not regret your purchase. From ing with people in a jet or just doing ceo misssions and starting up a business. This game is not as fun if you're alone but don't worry there are alot of s in gta 5 online but i've met quite a few nice people."],
            [1, "One of the best games on console bought it on sale nice community better with friends (oh you dont have any) well thanks for saying that the loading screen is long so boot into singleplayer and then multiplayer and its faster this is an overall amazing game ( 5/29/2017) Hacker gave em 15 trillion dollars GG EZ"],
            [1, "Amazing game bought this before release and downloaded before release. Played the game 2 minutes after release. Cant get enough of it there was a wave of hackers which me off but now R* started banning them so its good. Hopefully they get some sort of anti cheat like VAC or something that bans them instantly."],
-           [1, "Definetly one of the best game from this deacade. The Single Player portion of this game is really good. Great story great character great environment all aspect of this game is just top notch quality. The Multiplayer portion of this game is also really addicting and fun. I definetly recommend this game for you to buy"
-],
+           [1, "Definetly one of the best game from this deacade. The Single Player portion of this game is really good. Great story great character great environment all aspect of this game is just top notch quality. The Multiplayer portion of this game is also really addicting and fun. I definetly recommend this game for you to buy"],
            [1, "Probably one of the best games I've played so far! The graphics are amazing! Sometimes I catch myself just driving/flying around Los Santos for hours. This game has an awesome story and such hilarious conversations I should also mention the music which is very good. Rockstar did and amazing job with the city traffic it's very realistic and so is peoples behaviour. If you enjoyed the previous GTA games you are gonna love this one!"],
            [1, "GTA 5 an open world third/first person game. The PC version is a great improvement over the consoles you can finally play it in 1080p 60fps. Great. The story mode is good i'd suggest you play it the Online is much better it's the same Los Santos but with real players. Have fun"],
            [1, "Awesome awesome awesome...oh and did I mention AWESOME!!! I can't only find one fault in this game that annoys me and that's the fact that there is a Casino and you can't use it. Hopefully a future DLC will address that issue but until then the game is just plain fun."]]
 
-
-def mountList(source, index):
-    global reviews,recommendation
-    if index == 1:
-        reviews = list(map(lambda item: item[index], source))
-    else:
-        recommendation = list(map(lambda item: item[index], source))
-
-def train(vectorizer, reviews, recommendation):
-    return BernoulliNB().fit(vectorizer.fit_transform(reviews), recommendation)
+def train(records, vectorizer):
+    reviews = [i[1] for i in records]
+    recommendation = [i[0] for i in records]
+    reviews = vectorizer.fit_transform(reviews)
+    return BernoulliNB().fit(reviews, recommendation)
 
 def analyser(text):
     global classificator, vectorizer
-    predicted = classificator.predict(vectorizer.transform([text]))
-    msg = '-'*15 + '\nO comentário:\n"' + text + '"\nFoi considerado '
-    msg += ('\033[92m'+'POSITIVO') if predicted[0] > 0 else ('\033[91m' + 'NEGATIVO')
-    print(msg + '\033[0m')
+    return classificator.predict(vectorizer.transform([text]))
 
-# INIT
-reviews, recommendation = [], []
-vectorizer = CountVectorizer()
-
-t1 = Thread(target=mountList,args=[data, 0])
-t2 = Thread(target=mountList,args=[data, 1])
-t1.start()
-t2.start()
-t1.join()
-t2.join()
-
-classificator = train(vectorizer, reviews, recommendation)
-
-exit = False
-while(exit == False):
-    question = str(input("\nBem vindo ao Classificador de Comentários\nDigite uma frase para iniciar a verificação ou 'sair' para encerrar o programa.\nO que você vai fazer agora?\nR.: "))
-    if question.strip().lower() == "sair":
-        exit = True
-    else:
-        analyser(question)
+vectorizer = CountVectorizer(binary = "true")
+classificator = train(reviews, vectorizer)

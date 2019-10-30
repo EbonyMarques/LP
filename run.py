@@ -7,6 +7,8 @@ from naive_bayes_classifier import NaiveBayes
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
+print(len(reviews))
+print(len(recommendations))
 vectorizer = Vectorizer(reviews, recommendations)
 classifier = SVM(vectorizer)
 #classifier = NaiveBayes(vectorizer)

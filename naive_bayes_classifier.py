@@ -2,6 +2,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.metrics import precision_score
+from pickle import dump, load
 
 class NaiveBayes():
     def __init__(self, vectorizer):
@@ -9,8 +10,21 @@ class NaiveBayes():
         self.reviews_test = None
         self.recommendations_test = None
         self.model = None
-        self.classifier_creator()
-    
+
+        try:
+            self.classifier_loader()
+        except:
+            self.classifier_creator()
+            self.classifier_saver()
+
+    def classifier_saver(self):
+        with open("naive_bayes_classifier.pickle", "wb") as file:
+            dump([self.reviews_test, self.recommendations_test, self.model], file)
+        
+    def classifier_loader(self):
+        with open("naive_bayes_classifier.pickle", "rb") as file:
+            self.reviews_test, self.recommendations_test, self.model = load(file)
+        
     def text_predictor(self, text):
         processed_text = self.vectorizer.text_vectorizer(text)
         return self.model.predict(processed_text)

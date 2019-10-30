@@ -14,6 +14,7 @@ class NaiveBayes():
         try:
             print("Trying load classifier...")
             self.classifier_loader()
+
         except:
             print("Load failed. Training...")
             self.classifier_creator()
@@ -43,13 +44,7 @@ class NaiveBayes():
 
     def accuracy_printer(self):
         predictor = self.model.predict(self.reviews_test)
-
-        # SCORE
-        print("Testing Naive Bayes/BernoulliNB classifier...")
+        print("Testing NaiveBayes/BernoulliNB classifier...")
         print("Accuracy: %.2f" % accuracy_score(self.recommendations_test, predictor))
         print("Precision: %.2f" % precision_score(self.recommendations_test, predictor, average="macro"))
         print("F-measure: %.2f\n" % f1_score(self.recommendations_test, predictor, average="macro"))
-
-        # CONFUSION MATRIX
-        # print("\nConfusion matrix")
-        # print(confusion_matrix(labels_test, predictor, labels=[0, 1]))

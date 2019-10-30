@@ -12,18 +12,22 @@ class NaiveBayes():
         self.model = None
 
         try:
+            print("Trying load classifier...")
             self.classifier_loader()
         except:
+            print("Load failed. Training...")
             self.classifier_creator()
             self.classifier_saver()
 
     def classifier_saver(self):
         with open("naive_bayes_classifier.pickle", "wb") as file:
             dump([self.reviews_test, self.recommendations_test, self.model], file)
+            print("Classifier saved.\n")
         
     def classifier_loader(self):
         with open("naive_bayes_classifier.pickle", "rb") as file:
             self.reviews_test, self.recommendations_test, self.model = load(file)
+            print("Classifier loaded.\n")
         
     def text_predictor(self, text):
         processed_text = self.vectorizer.text_vectorizer(text)
@@ -44,7 +48,7 @@ class NaiveBayes():
         print("Testing Naive Bayes/BernoulliNB classifier...")
         print("Accuracy: %.2f" % accuracy_score(self.recommendations_test, predictor))
         print("Precision: %.2f" % precision_score(self.recommendations_test, predictor, average="macro"))
-        print("F-measure: %.2f" % f1_score(self.recommendations_test, predictor, average="macro"))
+        print("F-measure: %.2f\n" % f1_score(self.recommendations_test, predictor, average="macro"))
 
         # CONFUSION MATRIX
         # print("\nConfusion matrix")

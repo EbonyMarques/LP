@@ -8,7 +8,7 @@ class Extractor():
         self.recommendations = []
         
         try:
-            print("Trying load...")
+            print("Trying load data...")
             self.data_loader()
         except:
             print("Load failed. Extracting...")
@@ -18,11 +18,12 @@ class Extractor():
     def data_saver(self):
         with open("processed_data.pickle", "wb") as file:
             dump([self.reviews, self.recommendations], file)
+            print("Data saved.")
     
     def data_loader(self):
         with open("processed_data.pickle", "rb") as file:
             self.reviews, self.recommendations = load(file)
-            print("Loaded.")
+            print("Data loaded.")
 
     def review_appender(self, text):
         self.reviews.append(text)

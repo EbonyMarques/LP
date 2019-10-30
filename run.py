@@ -21,7 +21,7 @@ while(stop != True):
         stop = True
     else:
         message = "\nEsse texto é considerado"
-        predicted = classifier.text_predictor(text)
+        predicted = classifier.text_predictor(text.lower())
         message += (" positivo.\n") if int(predicted[0]) > 0 else (" negativo.\n")
         
         print(message)

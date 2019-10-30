@@ -34,7 +34,7 @@ class NaiveBayes():
         return self.model.predict(processed_text)
 
     def classifier_creator(self):
-        processed_reviews = self.vectorizer.vectorize()
+        processed_reviews = self.vectorizer.fited_reviews
         recommendations = self.vectorizer.recommendations
         reviews_train, self.reviews_test, recommendations_train, self.recommendations_test = train_test_split(processed_reviews, recommendations, test_size=0.2, random_state=0)
         classifier = BernoulliNB()

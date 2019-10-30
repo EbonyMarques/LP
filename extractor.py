@@ -18,12 +18,12 @@ class Extractor():
     def data_saver(self):
         with open("processed_data.pickle", "wb") as file:
             dump([self.reviews, self.recommendations], file)
-            print("Data saved.")
+            print("Data saved.\n")
     
     def data_loader(self):
         with open("processed_data.pickle", "rb") as file:
             self.reviews, self.recommendations = load(file)
-            print("Data loaded.")
+            print("Data loaded.\n")
 
     def review_appender(self, text):
         self.reviews.append(text)
@@ -32,9 +32,9 @@ class Extractor():
         self.recommendations.append(value)
 
     def data_processor(self, loaded_data):
-            processed_data = list(map(lambda i: processor(i[1]), loaded_data))
-            list(map(lambda i: self.review_appender(i), processed_data))
-            list(map(lambda i: self.recommendation_appender(i[0]), loaded_data))
+        processed_data = list(map(lambda i: processor(i[1].lower()), loaded_data))
+        list(map(lambda i: self.review_appender(i), processed_data))
+        list(map(lambda i: self.recommendation_appender(i[0]), loaded_data))
 
     def data_extractor(self, file_name):
         with open(file_name) as file:

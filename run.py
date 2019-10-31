@@ -1,14 +1,16 @@
 from extractor import Extractor
 from vectorizer import Vectorizer
-from naive_bayes_classifier import NaiveBayes
-#from svm_classifier import SVM
+#from naive_bayes_classifier import NaiveBayes
+from svm_classifier import SVM
+#from mlp_classifier import MLP
 
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
 vectorizer = Vectorizer(reviews, recommendations)
-classifier = NaiveBayes(vectorizer)
-#classifier = SVM(vectorizer)
+#classifier = NaiveBayes(vectorizer)
+classifier = SVM(vectorizer)
+#classifier = MLP(vectorizer)
 classifier.accuracy_printer()
 
 stop = False

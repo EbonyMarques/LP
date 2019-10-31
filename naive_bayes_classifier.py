@@ -21,12 +21,12 @@ class NaiveBayes():
             self.classifier_saver()
 
     def classifier_saver(self):
-        with open("naive_bayes_classifier.pickle", "wb") as file:
+        with open("naive_bayes_classifier_5000.pickle", "wb") as file:
             dump([self.reviews_test, self.recommendations_test, self.model], file)
             print("Classifier saved.\n")
         
     def classifier_loader(self):
-        with open("naive_bayes_classifier.pickle", "rb") as file:
+        with open("naive_bayes_classifier_5000.pickle", "rb") as file:
             self.reviews_test, self.recommendations_test, self.model = load(file)
             print("Classifier loaded.\n")
         

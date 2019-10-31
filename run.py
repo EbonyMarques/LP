@@ -2,7 +2,7 @@ from extractor import Extractor
 from vectorizer import Vectorizer
 #from naive_bayes_classifier import NaiveBayes
 from svm_classifier import SVM
-#from mlp_classifier import MLP
+#from neural_network_classifier import MLP
 
 extractor = Extractor()
 reviews = extractor.reviews

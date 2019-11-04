@@ -43,9 +43,9 @@ class Extractor():
             return list(loaded_data)
 
     def extractor(self):
-        positive_data = self.data_extractor("positive_reviews.csv")
-        #positive_data = self.data_extractor("positive_random_reviews_part_2000.csv")
-        negative_data = self.data_extractor("negative_reviews.csv")
-        #negative_data = self.data_extractor("negative_random_reviews_part_2000.csv")
+        #positive_data = self.data_extractor("positive_reviews.csv")
+        positive_data = self.data_extractor("positive_random_reviews_part_2000.csv")
+        #negative_data = self.data_extractor("negative_reviews.csv")
+        negative_data = self.data_extractor("negative_random_reviews_part_2000.csv")
         self.data_processor(positive_data)
         self.data_processor(negative_data)

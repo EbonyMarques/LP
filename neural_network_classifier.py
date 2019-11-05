@@ -21,12 +21,12 @@ class MLP():
             self.classifier_saver()
 
     def classifier_saver(self):
-        with open("neural_network_classifier_5000.pickle", "wb") as file:
+        with open("neural_network_classifier_2000.pickle", "wb") as file:
             dump([self.reviews_test, self.recommendations_test, self.model], file)
             print("Classifier saved.\n")
         
     def classifier_loader(self):
-        with open("neural_network_classifier_5000.pickle", "rb") as file:
+        with open("neural_network_classifier_2000.pickle", "rb") as file:
             self.reviews_test, self.recommendations_test, self.model = load(file)
             print("Classifier loaded.\n")
         

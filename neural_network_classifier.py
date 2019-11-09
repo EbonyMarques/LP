@@ -21,6 +21,6 @@ class MLP(Classifier):
         processed_reviews = self.vectorizer.fited_reviews
         recommendations = self.vectorizer.recommendations
         reviews_train, self.reviews_test, recommendations_train, self.recommendations_test = train_test_split(processed_reviews, recommendations, test_size=0.2, random_state=0)
-        classifier = MLPClassifier(solver = "lbfgs", alpha = 1e-5, hidden_layer_sizes = (70, ), random_state = 1, verbose = True)
+        classifier = MLPClassifier(solver = "adam", alpha = 1e-5, hidden_layer_sizes = (70, ), random_state = 1, verbose = True)
         classifier.fit(reviews_train, recommendations_train)
         self.model = classifier

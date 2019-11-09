@@ -17,12 +17,12 @@ class Extractor():
             self.data_saver()
 
     def data_saver(self):
-        with open("processed_data_2000.pickle", "wb") as file:
+        with open("processed_data_5000.pickle", "wb") as file:
             dump([self.reviews, self.recommendations], file)
             print("Data saved.\n")
     
     def data_loader(self):
-        with open("processed_data_2000.pickle", "rb") as file:
+        with open("processed_data_5000.pickle", "rb") as file:
             self.reviews, self.recommendations = load(file)
             print("Data loaded.\n")
 

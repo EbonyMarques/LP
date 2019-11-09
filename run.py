@@ -1,18 +1,25 @@
 from extractor import Extractor
-from vectorizer import Vectorizer
-#from naive_bayes_classifier import NaiveBayes
+from count_vectorizer import CountVectorizer
+from tfidf_vectorizer import TFIDFVectorizer
+from naive_bayes_classifier import NaiveBayes
 from svm_classifier import SVM
-#from neural_network_classifier import MLP
 
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
-vectorizer = Vectorizer(reviews, recommendations)
-#classifier = NaiveBayes(vectorizer)
-classifier = SVM(vectorizer)
-#classifier = MLP(vectorizer)
-classifier.accuracy_printer()
 
+vectorizer1 = CountVectorizer(reviews, recommendations)
+vectorizer2 = CountVectorizer(reviews, recommendations, (1, 4))
+vectorizer3 = TFIDFVectorizer(reviews, recommendations)
+vectorizer4 = TFIDFVectorizer(reviews, recommendations, (1, 4))
+
+classifier1 = NaiveBayes(vectorizer1)
+classifier2 = NaiveBayes(vectorizer2)
+classifier3 = SVM(vectorizer3)
+classifier4 = SVM(vectorizer4)
+
+#classifier.accuracy_printer()
+"""
 stop = False
 
 while(stop != True):
@@ -25,4 +32,4 @@ while(stop != True):
         predicted = classifier.text_predictor(text.lower())
         message += (" positivo.\n") if int(predicted[0]) > 0 else (" negativo.\n")
         
-        print(message)
+        print(message)"""

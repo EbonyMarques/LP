@@ -3,9 +3,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 
 class NaiveBayes(Classifier):
-    def __init__(self, vectorizer):
+    def __init__(self, vectorizer, file_path):
         self.vectorizer = vectorizer
-        self.file_path = "naive_bayes_classifier_5000.pickle"
+        self.file_path = file_path
         self.name = "NaiveBayes/MultinomialNB"
         
         try:

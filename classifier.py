@@ -29,6 +29,18 @@ class Classifier():
     def accuracy_printer(self):
         predictor = self.model.predict(self.reviews_test)
         print("Testing", self.name, "classifier...")
-        print("Accuracy: %.2f" % accuracy_score(self.recommendations_test, predictor))
-        print("Precision: %.2f" % precision_score(self.recommendations_test, predictor, average="macro"))
-        print("F-measure: %.2f\n" % f1_score(self.recommendations_test, predictor, average="macro"))
+        print("Accuracy: %.4f" % accuracy_score(self.recommendations_test, predictor))
+        print("Precision: %.4f" % precision_score(self.recommendations_test, predictor, average="macro"))
+        print("F-measure: %.4f\n" % f1_score(self.recommendations_test, predictor, average="macro"))
+
+    def getAccuracy(self):
+        predictor = self.model.predict(self.reviews_test)
+        return accuracy_score(self.recommendations_test, predictor)
+
+    def getPrecission(self):
+        predictor = self.model.predict(self.reviews_test)
+        return precision_score(self.recommendations_test, predictor, average="macro")
+
+    def getFmeasure(self):
+        predictor = self.model.predict(self.reviews_test)
+        return f1_score(self.recommendations_test, predictor, average="macro")

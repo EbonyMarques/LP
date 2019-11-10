@@ -3,10 +3,10 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn import svm
 
 class SVM(Classifier):
-    def __init__(self, vectorizer):
+    def __init__(self, vectorizer, file_path):
         self.vectorizer = vectorizer
         self.classifier = svm.SVC()
-        self.file_path = "svm_classifier_5000.pickle"
+        self.file_path = file_path
         self.name = "SVM/GridSearchCV"
 
         try:

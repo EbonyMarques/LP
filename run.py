@@ -4,10 +4,12 @@ from tfidf_vectorizer import TFIDFVectorizer
 from naive_bayes_classifier import NaiveBayes
 from svm_classifier import SVM
 from plotGraphic import plotGraphic
+from word_count import cloud
 
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
+cloud(extractor.freqDist)
 
 vectorizer1 = CountVectorizer(reviews, recommendations)
 vectorizer2 = CountVectorizer(reviews, recommendations, (1, 4))
@@ -35,7 +37,7 @@ classifier4.accuracy_printer()
 """
 stop = False
 
-while(stop != True):
+while(stop is not True):
     text = str(input("Entre com algum texto para verificar ou 'sair' para encerrar.\n\n>>> "))
 
     if text.strip().lower() == "sair":

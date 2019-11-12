@@ -11,6 +11,7 @@ class Classifier():
         self.model = None
         self.file_path = None
         self.name = None
+        self.predictor = None
     
     def classifier_saver(self):
         with open(self.file_path, "wb") as file:
@@ -20,6 +21,7 @@ class Classifier():
     def classifier_loader(self):
         with open(self.file_path, "rb") as file:
             self.reviews_test, self.recommendations_test, self.model = load(file)
+            self.predictor_definer()
             print("Classifier loaded.\n")
 
     def text_predictor(self, text):
@@ -33,14 +35,14 @@ class Classifier():
         print("Precision: %.4f" % precision_score(self.recommendations_test, predictor, average="macro"))
         print("F-measure: %.4f\n" % f1_score(self.recommendations_test, predictor, average="macro"))
 
+    def predictor_definer(self):
+        self.predictor = self.model.predict(self.reviews_test)
+
     def getAccuracy(self):
-        predictor = self.model.predict(self.reviews_test)
-        return accuracy_score(self.recommendations_test, predictor)
+        return accuracy_score(self.recommendations_test, self.predictor)
 
     def getPrecission(self):
-        predictor = self.model.predict(self.reviews_test)
-        return precision_score(self.recommendations_test, predictor, average="macro")
+        return precision_score(self.recommendations_test, self.predictor, average="macro")
 
     def getFmeasure(self):
-        predictor = self.model.predict(self.reviews_test)
-        return f1_score(self.recommendations_test, predictor, average="macro")
+        return f1_score(self.recommendations_test, self.predictor, average="macro")

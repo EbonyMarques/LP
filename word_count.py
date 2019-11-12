@@ -4,7 +4,6 @@ from wordcloud import WordCloud
 from PIL import Image
 import numpy as np
 
-
 def cloud(vectorize):
     mask = np.array(Image.open("mask.png"))
     # mask = None

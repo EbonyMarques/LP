@@ -1,15 +1,17 @@
 from extractor import Extractor
+from tokenizer import tokenizer
 from count_vectorizer import CountVectorizer
 from tfidf_vectorizer import TFIDFVectorizer
 from naive_bayes_classifier import NaiveBayes
 from svm_classifier import SVM
-from plotGraphic import plotGraphic
-from word_count import cloud
+from plot_graphic import plot_graphic
+#from word_count import cloud
 
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
-cloud(extractor.freqDist)
+freq_dist = tokenizer(reviews)
+#cloud(extractor.freq_dist)
 
 vectorizer1 = CountVectorizer(reviews, recommendations)
 vectorizer2 = CountVectorizer(reviews, recommendations, (1, 4))
@@ -21,9 +23,7 @@ classifier2 = NaiveBayes(vectorizer2, "naive_bayes_classifier_5000_1_4.pickle")
 classifier3 = SVM(vectorizer3,"svm_classifier_5000_1_1.pickle")
 classifier4 = SVM(vectorizer4, "svm_classifier_5000_1_4.pickle")
 
-# classifier4.getPrecission(),classifier1.getPrecission(), classifier4.getFmeasure(), classifier1.getFmeasure()
-
-plotGraphic(classifier3.getFmeasure(),classifier1.getFmeasure(), classifier4.getFmeasure(), classifier2.getFmeasure())
+plot_graphic("F-measure", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getFmeasure(),classifier1.getFmeasure(), classifier4.getFmeasure(), classifier2.getFmeasure()])
 
 print("Naive 1-1")
 classifier1.accuracy_printer()

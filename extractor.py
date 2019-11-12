@@ -1,5 +1,3 @@
-import nltk
-from nltk.probability import FreqDist
 from processor import processor
 from pickle import dump, load
 from csv import reader
@@ -9,7 +7,7 @@ class Extractor():
     def __init__(self):
         self.reviews = []
         self.recommendations = []
-        self.freqDist = None
+        self.freq_dist = None
 
         try:
             print("Trying load data...")
@@ -28,7 +26,7 @@ class Extractor():
     def data_loader(self):
         with open("processed_data_5000.pickle", "rb") as file:
             self.reviews, self.recommendations = load(file)
-            self.tokenizer(self.reviews)
+            #self.tokenizer(self.reviews)
             print("Data loaded.\n")
 
     def review_appender(self, text):
@@ -39,7 +37,6 @@ class Extractor():
 
     def data_processor(self, loaded_data):
         processed_data = list(map(lambda i: processor(i[1].lower()), loaded_data))
-        self.tokenizer(processed_data)
         list(map(lambda i: self.review_appender(i), processed_data))
         list(map(lambda i: self.recommendation_appender(i[0]), loaded_data))
 
@@ -50,12 +47,8 @@ class Extractor():
 
     def extractor(self):
         #positive_data = self.data_extractor("positive_reviews.csv")
-        positive_data = self.data_extractor("positive_random_reviews_part_2000.csv")
+        positive_data = self.data_extractor("positive_random_reviews.csv")
         #negative_data = self.data_extractor("negative_reviews.csv")
-        negative_data = self.data_extractor("negative_random_reviews_part_2000.csv")
+        negative_data = self.data_extractor("negative_random_reviews.csv")
         self.data_processor(positive_data)
         self.data_processor(negative_data)
-
-    def tokenizer(self, reviews):
-        tokens = nltk.tokenize.word_tokenize(' '.join(reviews))
-        self.freqDist = FreqDist(tokens)

@@ -16,7 +16,8 @@ class SVM(Classifier):
         except:
             print("Load failed. Training...")
             self.classifier_creator()
-            self.classifier_saver
+            self.predictor_definer()
+            self.classifier_saver()
 
     def classifier_creator(self):
         processed_reviews = self.vectorizer.fited_reviews

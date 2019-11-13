@@ -1,5 +1,5 @@
 from extractor import Extractor
-from tokenizer import tokenizer
+from tokenizer import tokenizer, filter_words,remove_numbers
 from count_vectorizer import CountVectorizer
 from tfidf_vectorizer import TFIDFVectorizer
 from naive_bayes_classifier import NaiveBayes
@@ -10,10 +10,18 @@ from plot_graphic import plot_graphic
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
-freq_dist = tokenizer(reviews)
+#freq_dist = tokenizer(reviews)
+freq_dist = tokenizer(reviews[5000:])
+words = freq_dist.most_common(20)
+result = remove_numbers(filter_words(words))
+name = list(map(lambda x: x[0], result))
+values = list(map(lambda x: x[1], result))
+
+plot_graphic("Negative reviews' words", name, values)
+
 #cloud(extractor.freq_dist)
 
-vectorizer1 = CountVectorizer(reviews, recommendations)
+'''vectorizer1 = CountVectorizer(reviews, recommendations)
 vectorizer2 = CountVectorizer(reviews, recommendations, (1, 4))
 vectorizer3 = TFIDFVectorizer(reviews, recommendations)
 vectorizer4 = TFIDFVectorizer(reviews, recommendations, (1, 4))
@@ -33,8 +41,9 @@ print("SVM 1-1")
 classifier3.accuracy_printer()
 print("SVM 1-4")
 classifier4.accuracy_printer()
-
+'''
 """
+
 stop = False
 
 while(stop is not True):

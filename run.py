@@ -1,5 +1,5 @@
 from extractor import Extractor
-from tokenizer import tokenizer, filter_words,remove_numbers
+from tokenizer import tokenizer, filter_words,remove_numbers, reviews_positive, reviews_negative, words_separation
 from count_vectorizer import CountVectorizer
 from tfidf_vectorizer import TFIDFVectorizer
 from naive_bayes_classifier import NaiveBayes
@@ -11,13 +11,11 @@ extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
 #freq_dist = tokenizer(reviews)
-freq_dist = tokenizer(reviews[5000:])
-words = freq_dist.most_common(20)
-result = remove_numbers(filter_words(words))
-name = list(map(lambda x: x[0], result))
-values = list(map(lambda x: x[1], result))
-
-plot_graphic("Negative reviews' words", name, values)
+nameN, valuesN, resultN = reviews_negative(reviews)
+namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
+plot_graphic("Negative words", namePN, valuesPN)
+plot_graphic("Positive words", namePP, valuesPP)
+plot_graphic("Negative reviews' words", nameN, valuesN)
 
 #cloud(extractor.freq_dist)
 

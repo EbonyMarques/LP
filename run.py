@@ -18,7 +18,7 @@ vectorizer4 = TFIDFVectorizer(reviews, recommendations, (1, 4))
 
 classifier1 = NaiveBayes(vectorizer1, "naive_bayes_classifier_5000_1_1.pickle")
 classifier2 = NaiveBayes(vectorizer2, "naive_bayes_classifier_5000_1_4.pickle")
-classifier3 = SVM(vectorizer3,"svm_classifier_5000_1_1.pickle")
+classifier3 = SVM(vectorizer3, "svm_classifier_5000_1_1.pickle")
 classifier4 = SVM(vectorizer4, "svm_classifier_5000_1_4.pickle")
 
 print("Naive 1-1")
@@ -40,18 +40,16 @@ classifier4.accuracy_printer()
 #plot_graphic("F-measure", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getFmeasure(),classifier1.getFmeasure(), classifier4.getFmeasure(), classifier2.getFmeasure()])
 #cloud(extractor.freq_dist)
 
-"""
-
 stop = False
 
-while(stop is not True):
+while(stop is False):
     text = str(input("Entre com algum texto para verificar ou 'sair' para encerrar.\n\n>>> "))
 
     if text.strip().lower() == "sair":
         stop = True
     else:
         message = "\nEsse texto é considerado"
-        predicted = classifier.text_predictor(text.lower())
+        predicted = classifier4.text_predictor(text)
         message += (" positivo.\n") if int(predicted[0]) > 0 else (" negativo.\n")
         
-        print(message)"""
+        print(message)

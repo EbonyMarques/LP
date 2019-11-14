@@ -2,12 +2,10 @@ from processor import processor
 from pickle import dump, load
 from csv import reader
 
-
 class Extractor():
     def __init__(self):
         self.reviews = []
         self.recommendations = []
-        self.freq_dist = None
 
         try:
             print("Trying load data...")
@@ -26,7 +24,6 @@ class Extractor():
     def data_loader(self):
         with open("processed_data_5000.pickle", "rb") as file:
             self.reviews, self.recommendations = load(file)
-            #self.tokenizer(self.reviews)
             print("Data loaded.\n")
 
     def review_appender(self, text):

@@ -26,6 +26,7 @@ class Classifier():
 
     def text_predictor(self, text):
         processed_text = self.vectorizer.text_vectorizer(text)
+        #print(processed_text)
         return self.model.predict(processed_text)
 
     def accuracy_printer(self):

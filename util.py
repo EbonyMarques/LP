@@ -13,29 +13,23 @@ def filter_words(words):
 def remove_numbers(words):
     return list(filter(lambda i: i[0].isdigit() is False, words))
 
-def reviews_positive(reviews):
-    freq_distP = tokenizer(reviews[0:4999])
-    wordsP = freq_distP.most_common(20)
-    resultP = remove_numbers(filter_words(wordsP))
-    nameP = list(map(lambda x: x[0], resultP))
-    valuesP = list(map(lambda x: x[1], resultP))
-    return ((nameP, valuesP, resultP))
+def reviews_function(reviews):
+    freq_dist = tokenizer(reviews)
+    words = freq_dist.most_common(20)
+    result = remove_numbers(filter_words(words))
+    name = list(map(lambda x: x[0], result))
+    values = list(map(lambda x: x[1], result))
+    return ((name, values, result))
 
-def reviews_negative(reviews):
-    freq_distN = tokenizer(reviews[5000:])
-    wordsN = freq_distN.most_common(20)
-    resultN = remove_numbers(filter_words(wordsN))
-    nameN = list(map(lambda x: x[0], resultN))
-    valuesN = list(map(lambda x: x[1], resultN))
-    return ((nameN, valuesN, resultN))
+def words(name1,name2, result):
+    palavras = list(filter(lambda i: i[0] in list(filter(lambda j: j not in name1,name2)), result))
+    name = list(map(lambda x: x[0], palavras))
+    values = list(map(lambda x: x[1], palavras))
+    return ((name, values))
 
 def words_separation(reviews):
-    nameP, valuesP, resultP = reviews_positive(reviews)
-    nameN, valuesN, resultN = reviews_negative(reviews)
-    palavrasPos = list(filter(lambda i: i[0] in list(filter(lambda j: j not in nameN,nameP)), resultP))
-    namePP = list(map(lambda x: x[0], palavrasPos))
-    valuesPP = list(map(lambda x: x[1], palavrasPos))
-    palavrasNeg = list(filter(lambda i: i[0] in list(filter(lambda j: j not in nameP,nameN)), resultN))
-    namePN = list(map(lambda x: x[0], palavrasNeg))
-    valuesPN = list(map(lambda x: x[1], palavrasNeg))
-    return ((namePP, valuesPP, namePN, valuesPN))
+    nameP, valuesP, resultP = reviews_function(reviews[0:4999])
+    nameN, valuesN, resultN = reviews_function(reviews[5000:])
+    nameWP, valuesWP  = words(nameN,nameP,resultP)
+    nameWN, valuesWN  = words(nameP,nameN,resultN)
+    return ((nameWP, valuesWP, nameWN, valuesWN))

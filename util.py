@@ -13,7 +13,6 @@ def filter_words(words):
 def remove_numbers(words):
     return list(filter(lambda i: i[0].isdigit() is False, words))
 
-
 def reviews_positive(reviews):
     freq_distP = tokenizer(reviews[0:4999])
     wordsP = freq_distP.most_common(20)
@@ -40,5 +39,3 @@ def words_separation(reviews):
     namePN = list(map(lambda x: x[0], palavrasNeg))
     valuesPN = list(map(lambda x: x[1], palavrasNeg))
     return ((namePP, valuesPP, namePN, valuesPN))
-
-

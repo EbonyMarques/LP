@@ -1,5 +1,5 @@
 from extractor import Extractor
-from tokenizer import tokenizer, filter_words,remove_numbers, reviews_positive, reviews_negative, words_separation
+from util import tokenizer, filter_words,remove_numbers, reviews_positive, reviews_negative, words_separation
 from count_vectorizer import CountVectorizer
 from tfidf_vectorizer import TFIDFVectorizer
 from naive_bayes_classifier import NaiveBayes

@@ -21,23 +21,23 @@ classifier2 = NaiveBayes(vectorizer2, "naive_bayes_classifier_5000_1_4.pickle")
 classifier3 = SVM(vectorizer3, "svm_classifier_5000_1_1.pickle")
 classifier4 = SVM(vectorizer4, "svm_classifier_5000_1_4.pickle")
 
-print("Naive 1-1")
+'''print("Naive 1-1")
 classifier1.accuracy_printer()
 print("Naive 1-4")
 classifier2.accuracy_printer()
 print("SVM 1-1")
 classifier3.accuracy_printer()
 print("SVM 1-4")
-classifier4.accuracy_printer()
+classifier4.accuracy_printer()'''
 
 #freq_dist = tokenizer(reviews)
-#nameN, valuesN, resultN = reviews_function(reviews[5000:])
-namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
+nameN, valuesN, resultN = reviews_function(reviews[5000:])
+#namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
 
-#plot_graphic("Negative words", namePN, valuesPN)
-#plot_graphic("Positive words", namePP, valuesPP)
-#plot_graphic("Negative reviews' words", nameN, valuesN)
-plot_graphic("Precision", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getPrecission(),classifier1.getPrecission(), classifier4.getPrecission(), classifier2.getPrecission()], "Algorithm", "Precision percentage")
+#plot_graphic("Negative words", namePN, valuesPN, "Most Frequent words in negative reviews","Word Frequency")
+#plot_graphic("Positive words", namePP, valuesPP,"Most Frequent words in positive reviews","Word Frequency")
+plot_graphic("Negative reviews' words", nameN, valuesN, "Words", "Word occurrence")
+#plot_graphic("Precision", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getPrecission(),classifier1.getPrecission(), classifier4.getPrecission(), classifier2.getPrecission()], "Algorithm", "Precision percentage")
 #cloud(extractor.freq_dist)
 
 '''stop = False

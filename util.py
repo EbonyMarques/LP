@@ -1,9 +1,18 @@
-import nltk
+from nltk import tokenize
 from nltk.probability import FreqDist
 from nltk.corpus import stopwords
+#from wordcloud import WordCloud
+#from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+import re
+from threading import Thread
 
 def tokenizer(reviews):
-    tokens = nltk.tokenize.word_tokenize(' '.join(reviews))
+    tokens = tokenize.word_tokenize(' '.join(reviews))
     return FreqDist(tokens)
 
 def filter_words(words):
@@ -33,3 +42,60 @@ def words_separation(reviews):
     nameWP, valuesWP  = words(nameN,nameP,resultP)
     nameWN, valuesWN  = words(nameP,nameN,resultN)
     return ((nameWP, valuesWP, nameWN, valuesWN))
+
+"""
+def cloud(vectorize):
+    mask = np.array(Image.open("mask.png"))
+    # mask = None
+    print('Generate a word cloud image')
+    wordcloud = WordCloud(width=1543, height=1560, mask=mask, background_color = 'white').generate_from_frequencies(vectorize)
+    wordcloud.to_file("steam.png")"""
+
+def plot_graphic(title, names, values, x_title, y_title, path):
+    plt.figure(figsize=(15, 6))
+    #plt.subplot(131)
+    plt.bar(names, values)
+    plt.suptitle(title)
+    plt.xlabel(x_title, fontsize=15)
+    plt.ylabel(y_title, fontsize=13)
+    #plt.yticks([0.905, 0.910, 0.915, 0.920, 0.925, 0.930, 0.935, 0.940, 0.945, 0.950])
+    plt.ylim(bottom=0.9)  # this line
+    #plt.show()
+    plt.savefig(path)
+    #, 'Precisão SVM', 'Precisão Naive', 'F-measure SVM', 'F-measure Naive'
+
+def processor(text):
+    stopwords_list = stopwords.words("english")
+    words_to_remove = ["don't", "not", "is", "it's", "but"]
+    list(map(lambda i: stopwords_list.remove(i), words_to_remove))
+    
+    try:
+        result = text.replace("'", "")
+        result = re.sub("\W", " ", str(result))
+        result = re.sub("\s+[a-zA-Z]\s+", " ", result)
+        result = list(map(lambda i: re.sub("[^A-Za-z0]+", " ", i), [result]))
+        #result = re.sub("\s+", " ", result, flags=re.I)
+        #result = re.sub("^b\s+", "", result)
+        result = list(map(lambda i: word_tokenize(i), result))
+        result = list(map(lambda i: list(filter(lambda j: j not in stopwords_list, i)), result))
+        lemmatizer = WordNetLemmatizer()
+        result = list(map(lambda i: list(map(lambda j: lemmatizer.lemmatize(j), i)), result))
+        result = " ".join(result[0])
+        return result
+        
+    except:
+        print("Atenção! Este texto não pôde ser processado: " + text + ".") #esse bloco try/except será retirado na versão final
+
+class ThreadWithReturnValue(Thread):
+    def __init__(self, group=None, target=None, name=None, args=(), kwargs={}, Verbose=None):
+        Thread.__init__(self, group, target, name, args, kwargs)
+        self._return = None
+
+    def run(self):
+        #print(type(self._target))
+        if self._target is not None:
+            self._return = self._target(*self._args, **self._kwargs)
+
+    def join(self, *args):
+        Thread.join(self, *args)
+        return self._return

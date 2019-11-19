@@ -1,4 +1,4 @@
-from processor import processor
+from util import processor
 from pickle import dump, load
 from csv import reader
 
@@ -17,12 +17,12 @@ class Extractor():
             self.data_saver()
 
     def data_saver(self):
-        with open("processed_data_5000.pickle", "wb") as file:
+        with open("data/processed_data_5000.pickle", "wb") as file:
             dump([self.reviews, self.recommendations], file)
             print("Data saved.\n")
 
     def data_loader(self):
-        with open("processed_data_5000.pickle", "rb") as file:
+        with open("data/processed_data_5000.pickle", "rb") as file:
             self.reviews, self.recommendations = load(file)
             print("Data loaded.\n")
 
@@ -43,9 +43,7 @@ class Extractor():
             return list(loaded_data)
 
     def extractor(self):
-        #positive_data = self.data_extractor("positive_reviews.csv")
-        positive_data = self.data_extractor("positive_random_reviews.csv")
-        #negative_data = self.data_extractor("negative_reviews.csv")
-        negative_data = self.data_extractor("negative_random_reviews.csv")
+        positive_data = self.data_extractor("data/positive_random_reviews.csv")
+        negative_data = self.data_extractor("data/negative_random_reviews.csv")
         self.data_processor(positive_data)
         self.data_processor(negative_data)

@@ -1,56 +1,58 @@
 from extractor import Extractor
-from util import tokenizer, filter_words,remove_numbers, reviews_function, words_separation
-from count_vectorizer import CountVectorizer
-from tfidf_vectorizer import TFIDFVectorizer
-from naive_bayes_classifier import NaiveBayes
-from svm_classifier import SVM
-from plot_graphic import plot_graphic
-#from word_count import cloud
+from vectorizer import CountVectorizer, TFIDFVectorizer
+from classifier import NaiveBayes, SVM
+from util import plot_graphic, reviews_function, ThreadWithReturnValue, words_separation
+from threading import Thread
 
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
 
+"""
 vectorizer1 = CountVectorizer(reviews, recommendations)
 vectorizer2 = CountVectorizer(reviews, recommendations, (1, 4))
 vectorizer3 = TFIDFVectorizer(reviews, recommendations)
 vectorizer4 = TFIDFVectorizer(reviews, recommendations, (1, 4))
 
-classifier1 = NaiveBayes(vectorizer1, "naive_bayes_classifier_5000_1_1.pickle")
-classifier2 = NaiveBayes(vectorizer2, "naive_bayes_classifier_5000_1_4.pickle")
-classifier3 = SVM(vectorizer3, "svm_classifier_5000_1_1.pickle")
-classifier4 = SVM(vectorizer4, "svm_classifier_5000_1_4.pickle")
+classifier1 = NaiveBayes(vectorizer1, "data/naive_bayes_classifier_5000_1_1.pickle")
+classifier2 = NaiveBayes(vectorizer2, "data/naive_bayes_classifier_5000_1_4.pickle")
+classifier3 = SVM(vectorizer3, "data/svm_classifier_5000_1_1.pickle")
+classifier4 = SVM(vectorizer4, "data/svm_classifier_5000_1_4.pickle")
+"""
 
-'''print("Naive 1-1")
-classifier1.accuracy_printer()
-print("Naive 1-4")
-classifier2.accuracy_printer()
-print("SVM 1-1")
-classifier3.accuracy_printer()
-print("SVM 1-4")
-classifier4.accuracy_printer()'''
-
-#freq_dist = tokenizer(reviews)
+namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
 nameN, valuesN, resultN = reviews_function(reviews[5000:])
-#namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
+nameP, valuesP, resultP = reviews_function(reviews[:4999])
 
-#plot_graphic("Negative words", namePN, valuesPN, "Most Frequent words in negative reviews","Word Frequency")
-#plot_graphic("Positive words", namePP, valuesPP,"Most Frequent words in positive reviews","Word Frequency")
-plot_graphic("Negative reviews' words", nameN, valuesN, "Words", "Word occurrence")
+#thread1 = Thread(target=plot_graphic, args=["Negative reviews' most frequent words (just in negative reviews)", namePN, valuesPN, "Word", "Occurrence", "graphs/frequent_words_just_negative_reviews.png"])
+thread2 = Thread(target=plot_graphic, args=["Positive reviews' most frequent words (just in positive reviews)", namePP, valuesPP, "Word", "Occurrence", "graphs/frequent_words_just_positive_reviews.png"])
+#thread3 = Thread(target=plot_graphic, args=["Negative reviews' most frequent words", nameN, valuesN, "Word", "Occurrence", "graphs/frequent_words_negative_reviews.png"])
+thread4 = Thread(target=plot_graphic, args=["Positive reviews' most frequent words", nameP, valuesP, "Word", "Occurrence", "graphs/frequent_words_positive_reviews.png"])
+#thread1.start()
+thread2.start()
+#thread3.start()
+thread4.start()
+#thread1.join()
+thread2.join()
+#thread3.join()
+thread4.join()
+
+"""
 #plot_graphic("Precision", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getPrecission(),classifier1.getPrecission(), classifier4.getPrecission(), classifier2.getPrecission()], "Algorithm", "Precision percentage")
+#freq_dist = tokenizer(reviews)
 #cloud(extractor.freq_dist)
 
-'''stop = False
+stop = False
 
 while(stop is False):
     text = str(input("Entre com algum texto para verificar ou 'sair' para encerrar.\n\n>>> "))
 
     if text.strip().lower() == "sair":
         stop = True
+
     else:
         message = "\nEsse texto é considerado"
         predicted = classifier4.text_predictor(text)
         message += (" positivo.\n") if int(predicted[0]) > 0 else (" negativo.\n")
-        
         print(message)
-'''
+"""

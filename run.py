@@ -11,7 +11,7 @@ extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
 
-'''vectorizer1 = CountVectorizer(reviews, recommendations)
+vectorizer1 = CountVectorizer(reviews, recommendations)
 vectorizer2 = CountVectorizer(reviews, recommendations, (1, 4))
 vectorizer3 = TFIDFVectorizer(reviews, recommendations)
 vectorizer4 = TFIDFVectorizer(reviews, recommendations, (1, 4))
@@ -28,19 +28,19 @@ classifier2.accuracy_printer()
 print("SVM 1-1")
 classifier3.accuracy_printer()
 print("SVM 1-4")
-classifier4.accuracy_printer()'''
+classifier4.accuracy_printer()
 
 #freq_dist = tokenizer(reviews)
-nameN, valuesN, resultN = reviews_function(reviews[5000:])
-#namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
+#nameN, valuesN, resultN = reviews_function(reviews[5000:])
+namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
 
 #plot_graphic("Negative words", namePN, valuesPN)
 #plot_graphic("Positive words", namePP, valuesPP)
-plot_graphic("Negative reviews' words", nameN, valuesN)
-#plot_graphic("F-measure", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getFmeasure(),classifier1.getFmeasure(), classifier4.getFmeasure(), classifier2.getFmeasure()])
+#plot_graphic("Negative reviews' words", nameN, valuesN)
+plot_graphic("Precision", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getPrecission(),classifier1.getPrecission(), classifier4.getPrecission(), classifier2.getPrecission()], "Algorithm", "Precision percentage")
 #cloud(extractor.freq_dist)
 
-stop = False
+'''stop = False
 
 while(stop is False):
     text = str(input("Entre com algum texto para verificar ou 'sair' para encerrar.\n\n>>> "))
@@ -53,3 +53,4 @@ while(stop is False):
         message += (" positivo.\n") if int(predicted[0]) > 0 else (" negativo.\n")
         
         print(message)
+'''

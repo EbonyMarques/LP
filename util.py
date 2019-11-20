@@ -1,8 +1,9 @@
 from nltk import tokenize
 from nltk.probability import FreqDist
 from nltk.corpus import stopwords
-#from wordcloud import WordCloud
-#from PIL import Image
+from wordcloud import WordCloud, ImageColorGenerator
+from time import time
+from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize
@@ -43,13 +44,17 @@ def words_separation(reviews):
     nameWN, valuesWN  = words(nameP,nameN,resultN)
     return ((nameWP, valuesWP, nameWN, valuesWN))
 
-"""
-def cloud(vectorize):
-    mask = np.array(Image.open("mask.png"))
-    # mask = None
-    print('Generate a word cloud image')
-    wordcloud = WordCloud(width=1543, height=1560, mask=mask, background_color = 'white').generate_from_frequencies(vectorize)
-    wordcloud.to_file("steam.png")"""
+def set_reviews_to_wordcloud(args):
+    list(map(lambda dataset: generate_cloud(tokenizer(dataset)), args))
+
+def generate_cloud(freq_dist):
+    mask = np.array(Image.open("word_cloud/masks/mask-%s.png" % 'e'))
+    gradient = np.array(Image.open("word_cloud/colors/gradient.jpg"))
+    contour = 0
+    print("Generating a word cloud image\n")
+    wordcloud = WordCloud(width=1543, height=1560, mask=mask, background_color="white", contour_width=contour).generate_from_frequencies(freq_dist)
+    wordcloud.recolor(color_func=ImageColorGenerator(gradient))
+    wordcloud.to_file("word_cloud/steam%s.png" % str(int(time())))
 
 def plot_graphic(title, names, values, x_title, y_title, path):
     plt.figure(figsize=(15, 6))
@@ -68,7 +73,7 @@ def processor(text):
     stopwords_list = stopwords.words("english")
     words_to_remove = ["don't", "not", "is", "it's", "but"]
     list(map(lambda i: stopwords_list.remove(i), words_to_remove))
-    
+
     try:
         result = text.replace("'", "")
         result = re.sub("\W", " ", str(result))
@@ -82,9 +87,23 @@ def processor(text):
         result = list(map(lambda i: list(map(lambda j: lemmatizer.lemmatize(j), i)), result))
         result = " ".join(result[0])
         return result
-        
+
     except:
         print("Atenção! Este texto não pôde ser processado: " + text + ".") #esse bloco try/except será retirado na versão final
+
+def predict_texts(initialize, classifier=None):
+    stop = not initialize
+    while(stop is False):
+        text = str(input("Entre com algum texto para verificar ou 'sair' para encerrar.\n\n>>> "))
+
+        if text.strip().lower() == "sair":
+            stop = True
+
+        else:
+            message = "\nEsse texto é considerado"
+            predicted = classifier.text_predictor(text)
+            message += (" positivo.\n") if int(predicted[0]) > 0 else (" negativo.\n")
+            print(message)
 
 class ThreadWithReturnValue(Thread):
     def __init__(self, group=None, target=None, name=None, args=(), kwargs={}, Verbose=None):

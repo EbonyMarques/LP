@@ -1,7 +1,7 @@
 from extractor import Extractor
 from vectorizer import CountVectorizer, TFIDFVectorizer
 from classifier import NaiveBayes, SVM
-from util import plot_graphic, reviews_function, ThreadWithReturnValue, words_separation
+from util import plot_graphic, reviews_function, ThreadWithReturnValue, words_separation, set_reviews_to_wordcloud, predict_texts
 from threading import Thread
 
 extractor = Extractor()
@@ -23,7 +23,7 @@ classifier4 = SVM(vectorizer4, "data/svm_classifier_5000_1_4.pickle")
 namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
 nameN, valuesN, resultN = reviews_function(reviews[5000:])
 nameP, valuesP, resultP = reviews_function(reviews[:4999])
-
+"""
 #thread1 = Thread(target=plot_graphic, args=["Negative reviews' most frequent words (just in negative reviews)", namePN, valuesPN, "Word", "Occurrence", "graphs/frequent_words_just_negative_reviews.png"])
 thread2 = Thread(target=plot_graphic, args=["Positive reviews' most frequent words (just in positive reviews)", namePP, valuesPP, "Word", "Occurrence", "graphs/frequent_words_just_positive_reviews.png"])
 #thread3 = Thread(target=plot_graphic, args=["Negative reviews' most frequent words", nameN, valuesN, "Word", "Occurrence", "graphs/frequent_words_negative_reviews.png"])
@@ -39,20 +39,8 @@ thread4.join()
 
 """
 #plot_graphic("Precision", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getPrecission(),classifier1.getPrecission(), classifier4.getPrecission(), classifier2.getPrecission()], "Algorithm", "Precision percentage")
-#freq_dist = tokenizer(reviews)
-#cloud(extractor.freq_dist)
+# """
 
-stop = False
+set_reviews_to_wordcloud([reviews, reviews[:4999], reviews[:5000]])
 
-while(stop is False):
-    text = str(input("Entre com algum texto para verificar ou 'sair' para encerrar.\n\n>>> "))
-
-    if text.strip().lower() == "sair":
-        stop = True
-
-    else:
-        message = "\nEsse texto é considerado"
-        predicted = classifier4.text_predictor(text)
-        message += (" positivo.\n") if int(predicted[0]) > 0 else (" negativo.\n")
-        print(message)
-"""
+predict_texts(False)

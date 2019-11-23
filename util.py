@@ -83,10 +83,9 @@ def processor(text):
         #result = re.sub("^b\s+", "", result)
         result = list(map(lambda i: word_tokenize(i), result))
         result = list(map(lambda i: list(filter(lambda j: j not in stopwords_list, i)), result))
-        # lemmatizer = WordNetLemmatizer()
-        # result = list(map(lambda i: list(map(lambda j: lemmatizer.lemmatize(j), i)), result))
-        # result = " ".join(result[0])
-        print(result)
+        lemmatizer = WordNetLemmatizer()
+        result = list(map(lambda i: list(map(lambda j: lemmatizer.lemmatize(j), i)), result))
+        result = " ".join(result[0])
         return result
 
     except:

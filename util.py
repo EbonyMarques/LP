@@ -78,14 +78,15 @@ def processor(text):
         result = text.replace("'", "")
         result = re.sub("\W", " ", str(result))
         result = re.sub("\s+[a-zA-Z]\s+", " ", result)
-        result = list(map(lambda i: re.sub("[^A-Za-z0]+", " ", i), [result]))
+        result = list(map(lambda i: re.sub("[^A-Za-z]+", " ", i), [result]))
         #result = re.sub("\s+", " ", result, flags=re.I)
         #result = re.sub("^b\s+", "", result)
         result = list(map(lambda i: word_tokenize(i), result))
         result = list(map(lambda i: list(filter(lambda j: j not in stopwords_list, i)), result))
-        lemmatizer = WordNetLemmatizer()
-        result = list(map(lambda i: list(map(lambda j: lemmatizer.lemmatize(j), i)), result))
-        result = " ".join(result[0])
+        # lemmatizer = WordNetLemmatizer()
+        # result = list(map(lambda i: list(map(lambda j: lemmatizer.lemmatize(j), i)), result))
+        # result = " ".join(result[0])
+        print(result)
         return result
 
     except:

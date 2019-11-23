@@ -28,7 +28,7 @@ class Classifier():
         accuracy = accuracy_score(self.recommendations_test, self.predictor)
         precision = precision_score(self.recommendations_test, self.predictor, average="macro")
         fmeasure = f1_score(self.recommendations_test, self.predictor, average="macro")
-        return accuracy, precision, fmeasure
+        return ((accuracy, precision, fmeasure))
 
     def classifier_saver(self):
         with open(self.file_path, "wb") as file:

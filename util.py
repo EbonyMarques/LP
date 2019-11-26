@@ -1,9 +1,9 @@
 from nltk import tokenize
 from nltk.probability import FreqDist
 from nltk.corpus import stopwords
-from wordcloud import WordCloud, ImageColorGenerator
+#from wordcloud import WordCloud, ImageColorGenerator
 from time import time
-from PIL import Image
+#from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize
@@ -46,7 +46,7 @@ def words_separation(reviews):
 
 def set_reviews_to_wordcloud(args):
     list(map(lambda dataset: generate_cloud(tokenizer(dataset)), args))
-
+"""
 def generate_cloud(freq_dist):
     mask = np.array(Image.open("word_cloud/masks/mask-%s.png" % 'e'))
     gradient = np.array(Image.open("word_cloud/colors/gradient.jpg"))
@@ -55,7 +55,7 @@ def generate_cloud(freq_dist):
     wordcloud = WordCloud(width=1543, height=1560, mask=mask, background_color="white", contour_width=contour).generate_from_frequencies(freq_dist)
     wordcloud.recolor(color_func=ImageColorGenerator(gradient))
     wordcloud.to_file("word_cloud/steam%s.png" % str(int(time())))
-
+"""
 def plot_graphic(title, names, values, x_title, y_title, path):
     plt.figure(figsize=(15, 6))
     #plt.subplot(131)

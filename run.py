@@ -31,9 +31,9 @@ nomesClassifier = ["SVM (1,1)", "Naive (1,1)", "SVM (1,4)","Naive (1,4)"]
 precision = [result3[1], result1[1], result4[1], result2[1]]
 fmeasure = [result3[2], result1[2], result4[2], result2[2]]
 
-#thread1 = Thread(target=plot_graphic, args=["Accuracy", nomesClassifier, accuracy, "Algorithm (ngram_range)", "Percentage", "graphs/accuracy.png"])
-#thread2 = Thread(target=plot_graphic, args=["Precision", nomesClassifier, precision, "Algorithm (ngram_range)", "Percentage", "graphs/precision.png"])
-thread3 = Thread(target=plot_graphic, args=["Fmeasure", nomesClassifier, fmeasure, "Algorithm (ngram_range)", "Percentage", "graphs/fmeasure.png"])
+#thread1 = Thread(target=plot_graphic, args=["Accuracy", nomesClassifier, accuracy, "Algorithm (ngram_range)", "Percentage", "graphics/accuracy.png"])
+#thread2 = Thread(target=plot_graphic, args=["Precision", nomesClassifier, precision, "Algorithm (ngram_range)", "Percentage", "graphics/precision.png"])
+thread3 = Thread(target=plot_graphic, args=["Fmeasure", nomesClassifier, fmeasure, "Algorithm (ngram_range)", "Percentage", "graphics/fmeasure.png"])
 #thread1.start()
 #thread2.start()
 thread3.start()
@@ -47,20 +47,27 @@ thread3.join()
 namePP, valuesPP, namePN, valuesPN = words_separation(reviews)
 nameN, valuesN, resultN = reviews_function(reviews[5000:])
 nameP, valuesP, resultP = reviews_function(reviews[:4999])
+nameT, valuesT, resultT = reviews_function(reviews)
 """
 
-'''#thread1 = Thread(target=plot_graphic, args=["Negative reviews' most frequent words (just in negative reviews)", namePN, valuesPN, "Word", "Occurrence", "graphs/frequent_words_just_negative_reviews.png"])
-thread2 = Thread(target=plot_graphic, args=["Positive reviews' most frequent words (just in positive reviews)", namePP, valuesPP, "Word", "Occurrence", "graphs/frequent_words_just_positive_reviews.png"])
-#thread3 = Thread(target=plot_graphic, args=["Negative reviews' most frequent words", nameN, valuesN, "Word", "Occurrence", "graphs/frequent_words_negative_reviews.png"])
-thread4 = Thread(target=plot_graphic, args=["Positive reviews' most frequent words", nameP, valuesP, "Word", "Occurrence", "graphs/frequent_words_positive_reviews.png"])
-#thread1.start()
-thread2.start()
-#thread3.start()
-thread4.start()
-#thread1.join()
-thread2.join()
-#thread3.join()
-thread4.join()'''
+'''#thread4 = Thread(target=plot_graphic, args=["Negative reviews' most frequent words (just in negative reviews)", namePN, valuesPN, "Word", "Occurrence", "graphics/frequent_words_just_negative_reviews.png"])
+thread5 = Thread(target=plot_graphic, args=["Positive reviews' most frequent words (just in positive reviews)", namePP, valuesPP, "Word", "Occurrence", "graphics/frequent_words_just_positive_reviews.png"])
+#thread6 = Thread(target=plot_graphic, args=["Negative reviews' most frequent words", nameN, valuesN, "Word", "Occurrence", "graphics/frequent_words_negative_reviews.png"])
+thread7 = Thread(target=plot_graphic, args=["Positive reviews' most frequent words", nameP, valuesP, "Word", "Occurrence", "graphics/frequent_words_positive_reviews.png"])
+thread8 = Thread(target=plot_graphic, args=["Most frequent words in positive and negative reviews", nameT, valuesT, "Word", "Occurrence", "graphics/frequent_words_positive_and_negative_reviews.png"])
+
+#thread4.start()
+thread5.start()
+#thread6.start()
+thread7.start()
+thread8.start()
+
+#thread4.join()
+thread5.join()
+#thread6.join()
+thread7.join()
+thread8.join()'''
+
 
 
 #plot_graphic("Precision", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getPrecission(),classifier1.getPrecission(), classifier4.getPrecission(), classifier2.getPrecission()], "Algorithm", "Precision percentage")

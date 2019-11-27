@@ -1,13 +1,17 @@
 from extractor import Extractor
 from vectorizer import CountVectorizer, TFIDFVectorizer
 from classifier import NaiveBayes, SVM
-from util import plot_graphic, reviews_function, ThreadWithReturnValue, words_separation, set_reviews_to_wordcloud, predict_texts
+from util import plot_graphic, reviews_function, ThreadWithReturnValue, words_separation, predict_texts
+from WCUtils import set_reviews_to_wordcloud
 from threading import Thread
+
+POSITIVES_END = 4999
+NEGATIVES_START = 5000
 
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
-
+"""
 vectorizer1 = CountVectorizer(reviews, recommendations)
 vectorizer2 = CountVectorizer(reviews, recommendations, (1, 4))
 vectorizer3 = TFIDFVectorizer(reviews, recommendations)
@@ -36,7 +40,7 @@ thread3.start()
 #thread1.join()
 #thread2.join()
 thread3.join()
-
+"""
 
 """
 
@@ -58,11 +62,9 @@ thread2.join()
 #thread3.join()
 thread4.join()'''
 
-"""
-#plot_graphic("Precision", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getPrecission(),classifier1.getPrecission(), classifier4.getPrecission(), classifier2.getPrecission()], "Algorithm", "Precision percentage")
-# """
-"""
-#set_reviews_to_wordcloud([reviews, reviews[:4999], reviews[:5000]])
 
-predict_texts(True, classifier4)
-"""
+#plot_graphic("Precision", ["SVM(1,1)", "Naive(1,1)", "SVM(1,4)", "Naive(1,4)"], [classifier3.getPrecission(),classifier1.getPrecission(), classifier4.getPrecission(), classifier2.getPrecission()], "Algorithm", "Precision percentage")
+
+# set_reviews_to_wordcloud([reviews, reviews[:POSITIVES_END], reviews[NEGATIVES_START:]])
+
+# predict_texts(True, classifier4)

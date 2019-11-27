@@ -1,8 +1,8 @@
 from extractor import Extractor
 from vectorizer import CountVectorizer, TFIDFVectorizer
 from classifier import NaiveBayes, SVM
-from util import plot_graphic, reviews_function, ThreadWithReturnValue, words_separation, predict_texts
-from WCUtils import set_reviews_to_wordcloud
+from util import reviews_function, ThreadWithReturnValue, words_separation, predict_texts
+from graphic_util import plot_graphic
 from threading import Thread
 
 POSITIVES_END = 4999
@@ -11,7 +11,7 @@ NEGATIVES_START = 5000
 extractor = Extractor()
 reviews = extractor.reviews
 recommendations = extractor.recommendations
-"""
+
 vectorizer1 = CountVectorizer(reviews, recommendations)
 vectorizer2 = CountVectorizer(reviews, recommendations, (1, 4))
 vectorizer3 = TFIDFVectorizer(reviews, recommendations)
@@ -32,15 +32,15 @@ precision = [result3[1], result1[1], result4[1], result2[1]]
 fmeasure = [result3[2], result1[2], result4[2], result2[2]]
 
 #thread1 = Thread(target=plot_graphic, args=["Accuracy", nomesClassifier, accuracy, "Algorithm (ngram_range)", "Percentage", "graphics/accuracy.png"])
-#thread2 = Thread(target=plot_graphic, args=["Precision", nomesClassifier, precision, "Algorithm (ngram_range)", "Percentage", "graphics/precision.png"])
-thread3 = Thread(target=plot_graphic, args=["Fmeasure", nomesClassifier, fmeasure, "Algorithm (ngram_range)", "Percentage", "graphics/fmeasure.png"])
+thread2 = Thread(target=plot_graphic, args=["Precision", nomesClassifier, precision, "Algorithm (ngram_range)", "Percentage", "graphics/precision.png"])
+#thread3 = Thread(target=plot_graphic, args=["Fmeasure", nomesClassifier, fmeasure, "Algorithm (ngram_range)", "Percentage", "graphics/fmeasure.png"])
 #thread1.start()
-#thread2.start()
-thread3.start()
+thread2.start()
+#thread3.start()
 #thread1.join()
-#thread2.join()
-thread3.join()
-"""
+thread2.join()
+#thread3.join()
+
 
 """
 

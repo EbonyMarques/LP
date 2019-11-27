@@ -2,7 +2,6 @@ from nltk import tokenize
 from nltk.probability import FreqDist
 from nltk.corpus import stopwords
 import numpy as np
-import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
@@ -40,19 +39,6 @@ def words_separation(reviews):
     nameWP, valuesWP  = words(nameN,nameP,resultP)
     nameWN, valuesWN  = words(nameP,nameN,resultN)
     return ((nameWP, valuesWP, nameWN, valuesWN))
-
-def plot_graphic(title, names, values, x_title, y_title, path):
-    plt.figure(figsize=(15, 6))
-    #plt.subplot(131)
-    plt.bar(names, values)
-    plt.suptitle(title)
-    plt.xlabel(x_title, fontsize=15)
-    plt.ylabel(y_title, fontsize=13)
-    #plt.yticks([0.905, 0.910, 0.915, 0.920, 0.925, 0.930, 0.935, 0.940, 0.945, 0.950])
-    plt.ylim(bottom=0.9)  # this line
-    #plt.show()
-    plt.savefig(path)
-    #, 'Precisão SVM', 'Precisão Naive', 'F-measure SVM', 'F-measure Naive'
 
 def processor(text):
     stopwords_list = stopwords.words("english")

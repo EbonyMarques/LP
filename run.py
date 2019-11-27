@@ -26,19 +26,19 @@ result3 = classifier3.scorer()
 result4 = classifier4.scorer()
 
 #((accuracy, precision, fmeasure))
+classifiers_names = ["SVM (1,1)", "Naive (1,1)", "SVM (1,4)","Naive (1,4)"]
 accuracy =[result3[0], result1[0], result4[0], result2[0]]
-nomesClassifier = ["SVM (1,1)", "Naive (1,1)", "SVM (1,4)","Naive (1,4)"]
 precision = [result3[1], result1[1], result4[1], result2[1]]
 fmeasure = [result3[2], result1[2], result4[2], result2[2]]
 
-#thread1 = Thread(target=plot_graphic, args=["Accuracy", nomesClassifier, accuracy, "Algorithm (ngram_range)", "Percentage", "graphics/accuracy.png"])
-thread2 = Thread(target=plot_graphic, args=["Precision", nomesClassifier, precision, "Algorithm (ngram_range)", "Percentage", "graphics/precision.png"])
-#thread3 = Thread(target=plot_graphic, args=["Fmeasure", nomesClassifier, fmeasure, "Algorithm (ngram_range)", "Percentage", "graphics/fmeasure.png"])
+#thread1 = Thread(target=plot_graphic, args=["Accuracy", classifiers_names, accuracy, "Algorithm (ngram_range)", "Percentage", "graphics/accuracy.png"])
+#thread2 = Thread(target=plot_graphic, args=["Precision", classifiers_names, precision, "Algorithm (ngram_range)", "Percentage", "graphics/precision.png"])
+#thread3 = Thread(target=plot_graphic, args=["F-measure", classifiers_names, fmeasure, "Algorithm (ngram_range)", "Percentage", "graphics/fmeasure.png"])
 #thread1.start()
-thread2.start()
+#thread2.start()
 #thread3.start()
 #thread1.join()
-thread2.join()
+#thread2.join()
 #thread3.join()
 
 

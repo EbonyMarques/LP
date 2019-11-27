@@ -1,10 +1,10 @@
 import numpy as np
 from time import time
-from PIL import Image
-from wordcloud import WordCloud, ImageColorGenerator
+#from PIL import Image
+#from wordcloud import WordCloud, ImageColorGenerator
 import matplotlib.pyplot as plt
 from util import tokenizer
-
+"""
 def set_reviews_to_wordcloud(datasets):
     generate_csv_freqdist(False)
     list(map(lambda dataset: generate_cloud(tokenizer(dataset)), datasets))
@@ -26,7 +26,7 @@ def generate_csv_freqdist(generate, index=0, datasets=[]):
         fq = tokenizer(datasets[index])
         arq.writelines(list(map(lambda tuple: tuple[0]+';'+ str(tuple[1]) + '\n', sorted(fq.items(), key=itemgetter(1), reverse=True))))
         arq.close()
-
+"""
 def plot_graphic(title, names, values, x_title, y_title, path):
     plt.figure(figsize=(15, 6))
     #plt.subplot(131)

@@ -22,7 +22,7 @@ class Extractor():
             print("Data saved.\n")
 
     def data_loader(self):
-        with open("data/processed_data_5000_novo.pickle", "rb") as file:
+        with open("data/processed_data_5000.pickle", "rb") as file:
             self.reviews, self.recommendations = load(file)
             print("Data loaded.\n")
 

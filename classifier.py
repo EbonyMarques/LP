@@ -54,6 +54,7 @@ class NaiveBayes(Classifier):
         except:
             print("Load failed. Training...")
             self.classifier_creator()
+            self.predictor_definer()
             self.classifier_saver()
 
     def classifier_creator(self):

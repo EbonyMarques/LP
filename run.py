@@ -52,14 +52,15 @@ thread5 = Thread(target=plot_graphic, args=["Positive reviews' most frequent wor
 thread7 = Thread(target=plot_graphic, args=["Positive reviews' most frequent words", nameP, valuesP, "Word", "Occurrence", "graphics/frequent_words_positive_reviews.png"])
 thread8 = Thread(target=plot_graphic, args=["Most frequent words in positive and negative reviews", nameT, valuesT, "Word", "Occurrence", "graphics/frequent_words_positive_and_negative_reviews.png"])
 
+#thread1.start()
+#thread2.start()
+#thread3.start()
 #thread4.start()
 thread5.start()
 #thread6.start()
 thread7.start()
 thread8.start()
-#thread1.start()
-#thread2.start()
-#thread3.start()
+
 
 #thread1.join()
 #thread2.join()

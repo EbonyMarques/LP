@@ -25,9 +25,13 @@ result3 = classifier3.scorer()
 result4 = classifier4.scorer()
 
 classifiers_names = ["SVM (1,1)", "Naive (1,1)", "SVM (1,4)","Naive (1,4)"]
-accuracy =[result3[0], result1[0], result4[0], result2[0]]
+accuracy = [result3[0], result1[0], result4[0], result2[0]]
 precision = [result3[1], result1[1], result4[1], result2[1]]
 fmeasure = [result3[2], result1[2], result4[2], result2[2]]
+
+print(accuracy)
+print(precision)
+print(fmeasure)
 
 """
 namePP, valuesPP, namePN, valuesPN = words_separation(reviews)

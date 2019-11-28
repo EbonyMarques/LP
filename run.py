@@ -25,7 +25,6 @@ result2 = classifier2.scorer()
 result3 = classifier3.scorer()
 result4 = classifier4.scorer()'''
 
-#((accuracy, precision, fmeasure))
 classifiers_names = ["SVM (1,1)", "Naive (1,1)", "SVM (1,4)","Naive (1,4)"]
 accuracy =[result3[0], result1[0], result4[0], result2[0]]
 precision = [result3[1], result1[1], result4[1], result2[1]]

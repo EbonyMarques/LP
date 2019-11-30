@@ -37,11 +37,9 @@ classifier2 = NaiveBayes(vectorizer2, "data/naive_bayes_classifier_5000_1_4.pick
 time4.append(float(time()))
 times.append(time4[1]-time4[0])
 
-print(times)
+classifiers_names = ["SVM (1,1)", "Naive (1,1)", "SVM (1,4)", "Naive (1,4)"]
 
-classifiers_names = ["SVM (1,1)", "Naive (1,1)", "SVM (1,4)","Naive (1,4)"]
-
-thread13 = Thread(target=plot_graphic, args=["Train times", classifiers_names, times, "Algorithm (ngram_range)", "Seconds", "graphics/times.png"])
+thread13 = Thread(target=plot_graphic, args=["Train times", classifiers_names, [10582.61030960083/60,0.030913352966308594/60,11155.967951536179/60,0.2752652168273926/60], "Algorithm (ngram_range)", "Minutes", "graphics/times.png"])
 thread13.start()
 thread13.join()
 
